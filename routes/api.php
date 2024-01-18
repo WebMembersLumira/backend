@@ -35,13 +35,15 @@ Route::group([
         
         Route::get('get-link', [ServiceController::class,'getLink']);
         Route::post('set-link', [ServiceController::class,'setLink']);
+        Route::get('get-rekening', [ServiceController::class,'getRekening']);
+        Route::post('set-rekening', [ServiceController::class,'setRekening']);
+
         
       });
       
     });
   });
   
-  Route::get('get-link', [ServiceController::class,'getLink']);
 
   
 

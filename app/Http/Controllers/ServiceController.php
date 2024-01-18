@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\Transaksi;
 use Illuminate\Validation\Rule;
 
 
@@ -38,5 +39,36 @@ class ServiceController extends Controller
         $service->save();
     
         return response()->json(['message' => 'Link berhasil disimpan']);
+    }
+
+    public function setRekening(Request $request)
+    {
+        $validateData = $request->validate([
+            'rekening_tujuan' => 'required',
+            'harga' => 'required'
+        ]);
+    
+        $transaksi = Transaksi::first();
+    
+        if (!$transaksi) {
+            // Buat link baru jika tidak ditemukan
+            $transaksi = new Transaksi();
+        }
+    
+        $transaksi->rekening_tujuan = $validateData['rekening_tujuan'];
+        $transaksi->harga = $validateData['harga'];
+        $transaksi->save();
+    
+        return response()->json(['message' => 'data rekening berhasil disimpan']);
+    }
+
+    public function getRekening()
+    {
+        $rekening = Transaksi::first();
+
+        if (!$rekening) {
+            return response()->json(['message' => 'no data found']);
+        }
+        return response()->json(['message' => 'success', 'data' => $rekening]);
     }
 }
