@@ -32,6 +32,7 @@ Route::group([
         Route::post('create-invoice', [InvoiceController::class,'createInvoice']);
         Route::post('action-invoice', [InvoiceController::class,'actionInvoice']);
         Route::get('check-membership/{id}', [InvoiceController::class,'checkMembership']);
+        Route::get('invoice-status/{id}', [InvoiceController::class,'listInvoiceByStatus']);
         
         Route::get('get-link', [ServiceController::class,'getLink']);
         Route::post('set-link', [ServiceController::class,'setLink']);

@@ -18,6 +18,14 @@ class InvoiceController extends Controller
             : response()->json(['status' => false]);
     }
 
+    public function listInvoiceByStatus($status)
+    {
+        $data = Invoice::where('status', $status)->get();   
+        return $data
+        ? response()->json(['data' => $data, 'status' => true])
+        : response()->json(['status' => false]);
+    }
+
     public function listInvoiceByUserId($id)
     {
         $data = Invoice::where('user_id', $id)->get();
