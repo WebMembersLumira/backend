@@ -60,6 +60,11 @@ class EmailController extends Controller
         $user->save();
 
         // alihkan ke vue js
-        return 'aktivasi akun berhasil, silahkan login di aplikasi!';
+        return "
+        <p>Aktivasi akun berhasil, silahkan login di aplikasi!</p>
+        <a href='https://alicornbot.com/login'>
+            <button>Login</button>
+        </a>
+    ";
     }
 }
