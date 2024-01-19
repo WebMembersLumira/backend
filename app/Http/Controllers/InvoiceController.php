@@ -237,4 +237,21 @@ class InvoiceController extends Controller
         }
         return response()->json(['message'=> 'failed', 'status' => 401]);
     }
+
+    public function getJumlahInvoice()
+    {
+        $jumlahPending = Invoice::where('status', '0')->count();
+        $jumlahActive = Invoice::where('status', '1')->count();
+        $jumlahReject = Invoice::where('status', '2')->count();
+        $jumlahExpired = Invoice::where('status', '3')->count();
+        $jumlahPerpanjangan = Invoice::where('status', '4')->count();
+
+        return response()->json([
+            'jumlahPending' => $jumlahPending,
+            'jumlahActive' => $jumlahActive,
+            'jumlahReject' => $jumlahReject,
+            'jumlahExpired' => $jumlahExpired,
+            'jumlahPerpanjangan' => $jumlahPerpanjangan,
+        ]);
+    }
 }

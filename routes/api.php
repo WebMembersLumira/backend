@@ -33,6 +33,7 @@ Route::group([
         Route::post('action-invoice', [InvoiceController::class,'actionInvoice']);
         Route::get('check-membership/{id}', [InvoiceController::class,'checkMembership']);
         Route::get('invoice-status/{id}', [InvoiceController::class,'listInvoiceByStatus']);
+        Route::get('statistik-invoice', [InvoiceController::class,'getJumlahInvoice']);
         
         Route::get('get-link', [ServiceController::class,'getLink']);
         Route::post('set-link', [ServiceController::class,'setLink']);
