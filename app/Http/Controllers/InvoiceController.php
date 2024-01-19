@@ -11,8 +11,8 @@ class InvoiceController extends Controller
 {
     public function listInvoice()
     {
-        $data = Invoice::get();
-
+        $data = Invoice::with('user:id,name,no_hp')->get();
+    
         return $data
             ? response()->json(['data' => $data, 'status' => true])
             : response()->json(['status' => false]);
