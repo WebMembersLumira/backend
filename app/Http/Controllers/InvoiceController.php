@@ -63,7 +63,7 @@ class InvoiceController extends Controller
             // Update data Invoice
             $invoice->nomor_rekening = $validateData['nomor_rekening'];
             $invoice->jumlah_transfer = $validateData['jumlah_transfer'];
-            $invoice->status = '3';
+            $invoice->status = $request->status;
             $invoice->user_id = $validateData['user_id'];
     
             // Jika ada bukti transfer baru, simpan yang baru dan hapus yang lama
