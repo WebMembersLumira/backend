@@ -153,6 +153,20 @@ class AuthController extends Controller
         return $this->respondWithToken(auth()->refresh());
     }
 
+    public function deleteUser($id)
+    {
+        $data = User::find($id);
+        if ($data) {
+            $data->delete();
+            return response()->json([
+                'message' => 'success',
+            ]);
+        }
+        return response()->json([
+            'message' => 'data not found'
+        ]);
+    }
+
     /**
      * Get the token array structure.
      *
