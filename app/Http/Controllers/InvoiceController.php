@@ -25,7 +25,7 @@ class InvoiceController extends Controller
         if ($data->isNotEmpty()) {
             return response()->json(['data' => $data, 'status' => true]);
         } else {
-            return response()->json(['message' => 'Tidak ada data ditemukan.', 'status' => false], 404);
+            return response()->json(['message' => 'Tidak ada data ditemukan.', 'data' => []]);
         }
     }
 
