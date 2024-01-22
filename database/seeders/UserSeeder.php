@@ -29,7 +29,6 @@ class UserSeeder extends Seeder
             'no_hp' => '79079070s',
             'level' => '1',
             'status' => '1',
-            'metode_pembayaran' => 'transfer',
             'password' => Hash::make('12345'),
         ]);
     }
