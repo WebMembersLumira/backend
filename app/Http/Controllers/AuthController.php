@@ -28,7 +28,6 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'no_hp' => 'required|numeric|unique:users',
-            'metode_pembayaran' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -39,7 +38,6 @@ class AuthController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'no_hp' => $request->input('no_hp'),
-            'metode_pembayaran' => $request->input('metode_pembayaran'),
         ]);
 
         if ($user) {

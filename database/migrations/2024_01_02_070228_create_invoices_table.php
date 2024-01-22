@@ -22,8 +22,6 @@ class CreateInvoicesTable extends Migration
                 '0', // invoice baru / pending
                 '1', // active
                 '2', // reject
-                '3', // expired
-                '00' // perpanjang / pending
                 ])->default('0');
                 $table->date('tanggal_berakhir')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');

@@ -20,7 +20,6 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('no_hp');
-            $table->string('metode_pembayaran');
             // level 0 = user, level 1 = admin
             $table->enum('level',['0', '1'])->default('0');
             // status 0 = belum verifikasi, 1 = sudah verifikasi 
