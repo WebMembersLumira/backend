@@ -20,11 +20,15 @@ class InvoiceController extends Controller
 
     public function listInvoiceByStatus($status)
     {
-        $data = Invoice::where('status', $status)->get();   
-        return $data
-        ? response()->json(['data' => $data, 'status' => true])
-        : response()->json(['status' => false]);
+        $data = Invoice::with('user:id,name,no_hp')->where('status', $status)->get();
+
+        if ($data->isNotEmpty()) {
+            return response()->json(['data' => $data, 'status' => true]);
+        } else {
+            return response()->json(['message' => 'Tidak ada data ditemukan.', 'status' => false], 404);
+        }
     }
+
 
     public function listInvoiceByUserId($id)
     {
