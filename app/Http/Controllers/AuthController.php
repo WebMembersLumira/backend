@@ -167,6 +167,25 @@ class AuthController extends Controller
         ]);
     }
 
+    public function updatePw(Request $request, $id)
+    {
+        $validateData = $request->validate([
+            'password' => 'required'
+        ]);
+
+        $data = User::find($id);
+        if ($data) {
+            $data->password = bcrypt(request('password'));
+            $data->save();
+            return response()->json([
+                'message' => 'success'
+            ],200);    
+        }
+        return response()->json([
+            'message' => 'failed'
+        ],401);
+    }
+
     /**
      * Get the token array structure.
      *
