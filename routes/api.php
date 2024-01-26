@@ -34,22 +34,22 @@ Route::group([
         Route::get('check-membership/{id}', [InvoiceController::class,'checkMembership']);
         Route::get('invoice-status/{id}', [InvoiceController::class,'listInvoiceByStatus']);
         Route::get('statistik-invoice', [InvoiceController::class,'getJumlahInvoice']);
+        Route::get('list-invoice', [InvoiceController::class,'listInvoice']);
+        Route::post('create-invoice', [InvoiceController::class,'createInvoice']);
         
         Route::get('get-link', [ServiceController::class,'getLink']);
         Route::post('set-link', [ServiceController::class,'setLink']);
         Route::get('get-rekening', [ServiceController::class,'getRekening']);
         Route::post('set-rekening', [ServiceController::class,'setRekening']);
-        
-        
+
+        Route::get('list-langganan', [ServiceController::class,'listJenisLangganan']);
+        Route::post('set-langganan', [ServiceController::class,'setJenisLangganan']);
+        Route::delete('delete-langganan/{id}', [ServiceController::class,'deleteLangganan']);
       });
       
     });
   });
   
-  Route::get('list-invoice', [InvoiceController::class,'listInvoice']);
-  Route::post('create-invoice', [InvoiceController::class,'createInvoice']);
-  Route::get('list-langganan', [ServiceController::class,'listJenisLangganan']);
-  Route::post('set-langganan', [ServiceController::class,'setJenisLangganan']);
 
   
 

@@ -90,4 +90,14 @@ class ServiceController extends Controller
         $result = Langganan::get();
         return response()->json(['message' => 'success', 'data' => $result],200);
     }
+
+    public function deleteLangganan($id)
+    {
+        $result = Langganan::find($id);
+        if ($result) {
+            $result->delete();
+            return response()->json(['message'=>'success'],200);
+        }
+        return response()->json(['message'=>'failed'],401);
+    }
 }
