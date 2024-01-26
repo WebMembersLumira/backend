@@ -13,11 +13,17 @@ class Invoice extends Model
         'jumlah_transfer',
         'bukti_transfer',
         'status',
-        'user_id'
+        'user_id',
+        'langganan_id',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function langganan()
+    {
+        return $this->belongsTo(Langganan::class);
     }
 }

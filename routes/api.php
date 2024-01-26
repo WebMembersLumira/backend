@@ -27,11 +27,9 @@ Route::group([
         'middleware' => 'auth:api'
       ], function () {
         Route::get('list-myinvoice/{id}', [InvoiceController::class,'listInvoiceByUserId']);
-        Route::get('list-invoice', [InvoiceController::class,'listInvoice']);
         Route::get('detail-invoice/{id}', [InvoiceController::class,'detailInvoice']);
         Route::post('update-invoice/{id}', [InvoiceController::class,'updateInvoice']);
         Route::post('atur-tanggal', [InvoiceController::class,'aturTanggal']);
-        Route::post('create-invoice', [InvoiceController::class,'createInvoice']);
         Route::post('action-invoice', [InvoiceController::class,'actionInvoice']);
         Route::get('check-membership/{id}', [InvoiceController::class,'checkMembership']);
         Route::get('invoice-status/{id}', [InvoiceController::class,'listInvoiceByStatus']);
@@ -41,13 +39,17 @@ Route::group([
         Route::post('set-link', [ServiceController::class,'setLink']);
         Route::get('get-rekening', [ServiceController::class,'getRekening']);
         Route::post('set-rekening', [ServiceController::class,'setRekening']);
-
+        
         
       });
       
     });
   });
   
+  Route::get('list-invoice', [InvoiceController::class,'listInvoice']);
+  Route::post('create-invoice', [InvoiceController::class,'createInvoice']);
+  Route::get('list-langganan', [ServiceController::class,'listJenisLangganan']);
+  Route::post('set-langganan', [ServiceController::class,'setJenisLangganan']);
 
   
 

@@ -11,7 +11,7 @@ class InvoiceController extends Controller
 {
     public function listInvoice()
     {
-        $data = Invoice::with('user:id,name,no_hp')->get();
+        $data = Invoice::with('user:id,name,no_hp','langganan:id,jenis_langganan,harga')->get();
     
         return $data
             ? response()->json(['data' => $data, 'status' => true])
@@ -56,6 +56,7 @@ class InvoiceController extends Controller
             'jumlah_transfer' => 'required|numeric',
             'bukti_transfer' => 'required|image',
             'user_id' => 'required|numeric',
+            'langganan_id' => 'required|numeric',
         ]);
     
         // Cek apakah invoice sudah ada
@@ -69,6 +70,7 @@ class InvoiceController extends Controller
             $invoice->jumlah_transfer = $validateData['jumlah_transfer'];
             $invoice->status = '0';
             $invoice->user_id = $validateData['user_id'];
+            $invoice->langganan_id = $validateData['langganan_id'];
     
             // Jika ada bukti transfer baru, simpan yang baru dan hapus yang lama
             if ($request->hasFile('bukti_transfer')) {
@@ -94,6 +96,7 @@ class InvoiceController extends Controller
             $newInvoice->jumlah_transfer = $validateData['jumlah_transfer'];
             $newInvoice->bukti_transfer = $buktiTransferPath;
             $newInvoice->user_id = $validateData['user_id'];
+            $newInvoice->langganan_id = $validateData['langganan_id'];
     
             // Simpan data Invoice
             $saved = $newInvoice->saveOrFail();

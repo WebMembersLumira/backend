@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\Transaksi;
+use App\Models\Langganan;
 use Illuminate\Validation\Rule;
-
 
 class ServiceController extends Controller
 {
@@ -45,7 +45,6 @@ class ServiceController extends Controller
     {
         $validateData = $request->validate([
             'rekening_tujuan' => 'required',
-            'harga' => 'required'
         ]);
     
         $transaksi = Transaksi::first();
@@ -56,7 +55,6 @@ class ServiceController extends Controller
         }
     
         $transaksi->rekening_tujuan = $validateData['rekening_tujuan'];
-        $transaksi->harga = $validateData['harga'];
         $transaksi->save();
     
         return response()->json(['message' => 'data rekening berhasil disimpan']);
@@ -70,5 +68,26 @@ class ServiceController extends Controller
             return response()->json(['message' => 'no data found']);
         }
         return response()->json(['message' => 'success', 'data' => $rekening]);
+    }
+
+    public function setJenisLangganan(Request $request)
+    {
+        $validateData = $request->validate([
+            'jenis_langganan' => 'required',
+            'harga' => 'required'
+        ]);
+
+        $langganan = New Langganan();
+        $langganan->jenis_langganan = $validateData['jenis_langganan'];
+        $langganan->harga = $validateData['harga'];
+        $langganan->save();
+
+        return response()->json(['message' => 'success'],201);
+    }
+    
+    public function listJenisLangganan()
+    {
+        $result = Langganan::get();
+        return response()->json(['message' => 'success', 'data' => $result],200);
     }
 }
