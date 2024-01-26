@@ -15,6 +15,7 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_pengirim');
             $table->string('nomor_rekening');
             $table->integer('jumlah_transfer');
             $table->string('bukti_transfer');

@@ -52,6 +52,7 @@ class InvoiceController extends Controller
     public function createInvoice(Request $request)
     {
         $validateData = $request->validate([
+            'nama_pengirim' => 'required',
             'nomor_rekening' => 'required|numeric',
             'jumlah_transfer' => 'required|numeric',
             'bukti_transfer' => 'required|image',
@@ -66,6 +67,7 @@ class InvoiceController extends Controller
             // Jika invoice ada, update data
     
             // Update data Invoice
+            $invoice->nama_pengirim = $validateData['nama_pengirim'];
             $invoice->nomor_rekening = $validateData['nomor_rekening'];
             $invoice->jumlah_transfer = $validateData['jumlah_transfer'];
             $invoice->status = '0';
@@ -92,6 +94,7 @@ class InvoiceController extends Controller
     
             // Buat objek Invoice dan isi data
             $newInvoice = new Invoice();
+            $newInvoice->nama_pengirim = $validateData['nama_pengirim'];
             $newInvoice->nomor_rekening = $validateData['nomor_rekening'];
             $newInvoice->jumlah_transfer = $validateData['jumlah_transfer'];
             $newInvoice->bukti_transfer = $buktiTransferPath;

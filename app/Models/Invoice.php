@@ -9,6 +9,7 @@ class Invoice extends Model
 {
     use HasFactory;
     protected $fillable =[
+        'nama_pengirim',
         'nomor_rekening',
         'jumlah_transfer',
         'bukti_transfer',
