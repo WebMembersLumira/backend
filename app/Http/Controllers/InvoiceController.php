@@ -20,7 +20,7 @@ class InvoiceController extends Controller
 
     public function listInvoiceByStatus($status)
     {
-        $data = Invoice::with('user:id,name,no_hp')->where('status', $status)->get();
+        $data = Invoice::with('user:id,name,no_hp','langganan:id,jenis_langganan,harga')->where('status', $status)->get();
 
         if ($data->isNotEmpty()) {
             return response()->json(['data' => $data, 'status' => true]);

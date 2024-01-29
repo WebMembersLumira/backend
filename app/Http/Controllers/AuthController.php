@@ -44,7 +44,7 @@ class AuthController extends Controller
             // $this->emailController->index($user->id);
             Mail::to($user->email)->send(new SendEmail($user->id));
             // Mail::to($user->email)->send(new EmailVerification($user));
-            return response()->json(['message' => 'Registration successful', 'id' => $user->id],201);
+            return response()->json(['message' => 'Registration successful'],201);
         } else {
             return response()->json(['message' => 'Registration failed'], 500);
         }
