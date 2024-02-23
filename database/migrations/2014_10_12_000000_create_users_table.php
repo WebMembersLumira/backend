@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->enum('level',['0', '1'])->default('0');
             // status 0 = belum verifikasi, 1 = sudah verifikasi 
             $table->enum('status',['0', '1'])->default('0');
+            $table->text('active_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

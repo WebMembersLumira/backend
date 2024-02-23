@@ -28,6 +28,7 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'no_hp' => 'required|numeric|unique:users',
+            'password' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -38,12 +39,10 @@ class AuthController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'no_hp' => $request->input('no_hp'),
+            'password' => bcrypt(request('password')),
         ]);
 
         if ($user) {
-            // $this->emailController->index($user->id);
-            Mail::to($user->email)->send(new SendEmail($user->id));
-            // Mail::to($user->email)->send(new EmailVerification($user));
             return response()->json(['message' => 'Registration successful'],201);
         } else {
             return response()->json(['message' => 'Registration failed'], 500);
@@ -55,33 +54,38 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    public function getActiveToken($id)
+    {
+        $user = User::find($id);
+        if ($user) {
+            return response()->json($user->active_token,200);
+        }
+    }
+
     public function login()
     {
         // $now = Carbon::now(); 
         $user = User::where('email', request('email'))->first();
-        if ($user->status === '0') {
-            return response()->json(['error' => 'anda belum verifikasi akun!!']);
-        }
         
-
         $credentials = request(['email', 'password']);
 
         if (! $token = JWTAuth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-
         $customClaims = [
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
             'level' => $user->level,
-            'tanggal_berakhir' => $user->tanggal_berakhir,
+            // 'tanggal_berakhir' => $user->tanggal_berakhir,
             'status' => $user->status,
         ];
 
+        
         $tokenWithClaims = JWTAuth::claims($customClaims)->fromUser($user);
-
+        $user->active_token = $tokenWithClaims;
+        $user->save();
         return $this->respondWithToken($tokenWithClaims);
     }
 

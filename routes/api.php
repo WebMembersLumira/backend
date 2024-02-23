@@ -21,6 +21,8 @@ Route::group([
       Route::post('update-users/{id}', [AuthController::class,'resetPassword']);
       Route::post('update-pw/{id}', [AuthController::class,'updatePw']);
       Route::delete('delete-user/{id}', [AuthController::class,'deleteUser']);
+
+      Route::get('active-token/{id}', [AuthController::class,'getActiveToken']);
       
       // voting process
       Route::group([

@@ -23,8 +23,9 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'no_hp',
-        'metode_pembayaran',
-        'tanggal_berakhir',
+        'active_token'
+        // 'metode_pembayaran',
+        // 'tanggal_berakhir',
     ];
 
     /**
