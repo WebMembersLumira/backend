@@ -21,6 +21,8 @@ Route::group([
       Route::post('update-users/{id}', [AuthController::class,'resetPassword']);
       Route::post('update-pw/{id}', [AuthController::class,'updatePw']);
       Route::delete('delete-user/{id}', [AuthController::class,'deleteUser']);
+      
+      Route::post('ganti-password', [AuthController::class,'ubahPassword']);
 
       Route::get('active-token/{id}', [AuthController::class,'getActiveToken']);
       
@@ -53,7 +55,6 @@ Route::group([
   });
   
   
-  Route::get('statistik-invoice', [InvoiceController::class,'getJumlahInvoice']);
   
 
 

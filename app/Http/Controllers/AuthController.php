@@ -23,6 +23,20 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
+    public function ubahPassword(Request $request)
+    {
+        $validateData = $request->validate([
+            'id' => 'required',
+            'password' => 'required'
+        ]);
+
+        $dataUser = User::find($validateData['id']);
+        $dataUser->password = bcrypt($validateData['password']);
+        $dataUser->save();
+
+        return response()->json(['message' => 'success'],200);
+    }
+
     public function register(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required',
