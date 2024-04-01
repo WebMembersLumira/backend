@@ -52,7 +52,8 @@ Route::group([
     });
   });
   
-
+  
+  Route::get('statistik-invoice', [InvoiceController::class,'getJumlahInvoice']);
   
 
 

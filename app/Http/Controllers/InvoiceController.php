@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Invoice;
 use App\Models\User;
 use App\Models\Member;
+use Carbon\Carbon;
 
 class InvoiceController extends Controller
 {
@@ -250,9 +251,13 @@ class InvoiceController extends Controller
 
     public function getJumlahInvoice()
     {
+        $now = Carbon::now();
+
         $jumlahPending = Invoice::where('status', '0')->count();
-        $jumlahActive = Invoice::where('status', '1')->count();
-        $jumlahReject = Invoice::where('status', '2')->count();
+        // Menghitung jumlah invoice dengan status 'active' berdasarkan tanggal berakhirnya
+        $jumlahActive = Invoice::where('tanggal_berakhir', '>', $now)->count();
+        // Menghitung jumlah invoice dengan status 'reject' berdasarkan tanggal berakhirnya
+        $jumlahReject = Invoice::where('tanggal_berakhir', '<', $now)->count();
         $jumlahExpired = Invoice::where('status', '3')->count();
         $jumlahPerpanjangan = Invoice::where('status', '4')->count();
 
