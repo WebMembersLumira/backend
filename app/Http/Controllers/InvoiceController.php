@@ -257,8 +257,9 @@ class InvoiceController extends Controller
         // Menghitung jumlah invoice dengan status 'active' berdasarkan tanggal berakhirnya
         $jumlahActive = Invoice::where('tanggal_berakhir', '>', $now)->count();
         // Menghitung jumlah invoice dengan status 'reject' berdasarkan tanggal berakhirnya
-        $jumlahReject = Invoice::where('tanggal_berakhir', '<', $now)->count();
-        $jumlahExpired = Invoice::where('status', '3')->count();
+        $jumlahExpired = Invoice::where('tanggal_berakhir', '<', $now)->count();
+        $jumlahReject = Invoice::where('status', '2')->count();
+        // $jumlahReject = Invoice::where('tanggal_berakhir', '<', $now)->count();
         $jumlahPerpanjangan = Invoice::where('status', '4')->count();
 
         return response()->json([
