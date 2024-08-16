@@ -12,7 +12,10 @@ class InvoiceController extends Controller
 {
     public function listInvoice()
     {
-        $data = Invoice::with('user:id,name,no_hp','langganan:id,jenis_langganan,harga')->get();
+        // $data = Invoice::with('user:id,name,no_hp','langganan:id,jenis_langganan,harga')->get();
+        $data = Invoice::with('user:id,name,no_hp', 'langganan:id,jenis_langganan,harga')
+                ->orderBy('created_at', 'desc')
+                ->get();
     
         return $data
             ? response()->json(['data' => $data, 'status' => true])
@@ -21,7 +24,7 @@ class InvoiceController extends Controller
 
     public function listInvoiceByStatus($status)
     {
-        $data = Invoice::with('user:id,name,no_hp','langganan:id,jenis_langganan,harga')->where('status', $status)->get();
+        $data = Invoice::with('user:id,name,no_hp','langganan:id,jenis_langganan,harga')->where('status', $status)->orderBy('created_at', 'desc')->get();
 
         if ($data->isNotEmpty()) {
             return response()->json(['data' => $data, 'status' => true]);

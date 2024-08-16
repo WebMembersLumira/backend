@@ -26,7 +26,10 @@ class CreateInvoicesTable extends Migration
                 ])->default('0');
                 $table->date('tanggal_berakhir')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('langganan_id')->constrained('langganans')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreignId('langganan_id')->constrained('langganans')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreignId('langganan_id')->nullable()->constrained('langganans')->onDelete('set null')->onUpdate('cascade');
+            // $table->foreignId('langganan_id')->constrained('langganans')->restrictOnDelete()->onUpdate('cascade');
+            $table->foreignId('langganan_id')->nullable()->constrained('langganans')->nullOnDelete()->onUpdate('cascade');
             $table->timestamps();
         });
     }
