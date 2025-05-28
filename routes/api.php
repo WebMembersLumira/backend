@@ -26,7 +26,7 @@ Route::group([
 
       Route::get('active-token/{id}', [AuthController::class,'getActiveToken']);
       
-      // voting process
+      
       Route::group([
         'middleware' => 'auth:api'
       ], function () {
@@ -40,6 +40,7 @@ Route::group([
         Route::get('statistik-invoice', [InvoiceController::class,'getJumlahInvoice']);
         Route::get('list-invoice', [InvoiceController::class,'listInvoice']);
         Route::post('create-invoice', [InvoiceController::class,'createInvoice']);
+        Route::post('delete-invoices', [InvoiceController::class,'deleteInvoices']);
         
         Route::get('get-link', [ServiceController::class,'getLink']);
         Route::post('set-link', [ServiceController::class,'setLink']);

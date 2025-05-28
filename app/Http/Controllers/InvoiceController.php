@@ -14,9 +14,9 @@ class InvoiceController extends Controller
     {
         // $data = Invoice::with('user:id,name,no_hp','langganan:id,jenis_langganan,harga')->get();
         $data = Invoice::with('user:id,name,no_hp', 'langganan:id,jenis_langganan,harga')
-                ->orderBy('created_at', 'desc')
-                ->get();
-    
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return $data
             ? response()->json(['data' => $data, 'status' => true])
             : response()->json(['status' => false]);
@@ -24,7 +24,7 @@ class InvoiceController extends Controller
 
     public function listInvoiceByStatus($status)
     {
-        $data = Invoice::with('user:id,name,no_hp','langganan:id,jenis_langganan,harga')->where('status', $status)->orderBy('created_at', 'desc')->get();
+        $data = Invoice::with('user:id,name,no_hp', 'langganan:id,jenis_langganan,harga')->where('status', $status)->orderBy('created_at', 'desc')->get();
 
         if ($data->isNotEmpty()) {
             return response()->json(['data' => $data, 'status' => true]);
@@ -63,13 +63,13 @@ class InvoiceController extends Controller
             'user_id' => 'required|numeric',
             'langganan_id' => 'required|numeric',
         ]);
-    
+
         // Cek apakah invoice sudah ada
         $invoice = Invoice::where('user_id', $validateData['user_id'])->first();
-    
+
         if ($invoice) {
             // Jika invoice ada, update data
-    
+
             // Update data Invoice
             $invoice->nama_pengirim = $validateData['nama_pengirim'];
             $invoice->nomor_rekening = $validateData['nomor_rekening'];
@@ -77,25 +77,24 @@ class InvoiceController extends Controller
             $invoice->status = '0';
             $invoice->user_id = $validateData['user_id'];
             $invoice->langganan_id = $validateData['langganan_id'];
-    
+
             // Jika ada bukti transfer baru, simpan yang baru dan hapus yang lama
             if ($request->hasFile('bukti_transfer')) {
                 $buktiTransferPath = $request->file('bukti_transfer')->store('bukti_transfer', 'public');
                 $invoice->bukti_transfer = $buktiTransferPath;
             }
-    
+
             $updated = $invoice->saveOrFail();
-    
+
             return $updated
                 ? response()->json(['message' => 'Invoice updated successfully', 'status' => true])
                 : response()->json(['message' => 'Failed to update Invoice', 'status' => false]);
-    
         } else {
             // Jika invoice tidak ada, buat baru
-    
+
             // Simpan bukti transfer
             $buktiTransferPath = $request->file('bukti_transfer')->store('bukti_transfer', 'public');
-    
+
             // Buat objek Invoice dan isi data
             $newInvoice = new Invoice();
             $newInvoice->nama_pengirim = $validateData['nama_pengirim'];
@@ -104,16 +103,16 @@ class InvoiceController extends Controller
             $newInvoice->bukti_transfer = $buktiTransferPath;
             $newInvoice->user_id = $validateData['user_id'];
             $newInvoice->langganan_id = $validateData['langganan_id'];
-    
+
             // Simpan data Invoice
             $saved = $newInvoice->saveOrFail();
-    
+
             return $saved
                 ? response()->json(['message' => 'Invoice created successfully', 'status' => true])
                 : response()->json(['message' => 'Failed to create Invoice', 'status' => false]);
         }
     }
-    
+
 
     public function updateInvoice(Request $request, $id)
     {
@@ -155,7 +154,7 @@ class InvoiceController extends Controller
             'tanggal_berakhir' => 'required',
         ]);
 
-         // Ambil data invoice
+        // Ambil data invoice
         $invoice = Invoice::find($validateData['invoice_id']);
         // Periksa apakah invoice ditemukan
         if (!$invoice) {
@@ -165,21 +164,21 @@ class InvoiceController extends Controller
         $invoice->status = '1';
         $invoice->save();
 
-         // Ambil data invoice
-         $user = User::find($validateData['user_id']);
-         // Periksa apakah invoice ditemukan
-         if (!$user) {
-             return response()->json(['message' => 'User not found'], 404);
-         }
-         // Update status invoice
-         $user->tanggal_berakhir = $validateData['tanggal_berakhir'];
-         $user->status = '2';
-         $user->save();
+        // Ambil data invoice
+        $user = User::find($validateData['user_id']);
+        // Periksa apakah invoice ditemukan
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        // Update status invoice
+        $user->tanggal_berakhir = $validateData['tanggal_berakhir'];
+        $user->status = '2';
+        $user->save();
 
-         return response()->json([
+        return response()->json([
             'message' => 'success',
             'status' => true
-         ]);
+        ]);
     }
 
     public function actionInvoice(Request $request)
@@ -189,21 +188,21 @@ class InvoiceController extends Controller
             'invoice_id' => 'required',
             'status_invoice' => 'required',
             'tanggal_berakhir' => 'required_if:status_invoice,1'
-        ]);        
-    
+        ]);
+
         // Ambil user dan invoice
         $user = User::find($validateData['user_id']);
         $invoice = Invoice::find($validateData['invoice_id']);
-    
+
         // Pastikan user dan invoice ada
         if (!$invoice || !$user) {
-            return response()->json(['error'=>'data not found!']);
+            return response()->json(['error' => 'data not found!']);
         }
-    
+
         // Update status invoice
         $invoice->status = $validateData['status_invoice'];
         $invoice->saveOrFail();
-    
+
         // Jika invoice di acc
         if ($validateData['status_invoice'] == '1') {
             // Ambil atau buat data member
@@ -211,7 +210,7 @@ class InvoiceController extends Controller
             if (!$member) {
                 $member = new Member();
             }
-    
+
             // Masukkan data
             $member->status = 'true';
             $member->tanggal_berakhir = $validateData['tanggal_berakhir'];
@@ -220,36 +219,34 @@ class InvoiceController extends Controller
             $member->saveOrFail();
             $invoice->saveOrFail();
         }
-    
+
         // Jika invoice ditolak
         if ($validateData['status_invoice'] == '2') {
             // Ambil data member yang user id-nya sama
             $member = Member::where('user_id', $validateData['user_id'])->first();
-    
+
             // Jika terdapat data member, ubah datanya
-            if ($member && $member->exists) {                
+            if ($member && $member->exists) {
                 $member->status = 'false';
                 $member->tanggal_berakhir = '2023-01-01';
                 $member->user_id = $validateData['user_id'];
                 $member->saveOrFail();
             }
         }
-        
-        return response()->json(['message'=>'action invoice successfully!']);
+
+        return response()->json(['message' => 'action invoice successfully!']);
     }
 
-    public function setExpiredMemberDate()
-    {
-    }
-    
+    public function setExpiredMemberDate() {}
+
     public function checkMembership($id)
     {
         $memberData = Member::where('user_id', $id)->get();
 
-        if (count($memberData) >0) {
-            return response()->json(['message'=> 'success', 'data'=> $memberData]);
+        if (count($memberData) > 0) {
+            return response()->json(['message' => 'success', 'data' => $memberData]);
         }
-        return response()->json(['message'=> 'failed', 'status' => 401]);
+        return response()->json(['message' => 'failed', 'status' => 401]);
     }
 
     public function getJumlahInvoice()
@@ -272,5 +269,31 @@ class InvoiceController extends Controller
             'jumlahExpired' => $jumlahExpired,
             'jumlahPerpanjangan' => $jumlahPerpanjangan,
         ]);
+    }
+
+    // public function deleteInvoice($id)
+    // {
+    //     $result = Invoice::find($id);
+    //     if ($result) {
+    //         $result->delete();
+    //         return response()->json(['message' => 'success'], 200);
+    //     }
+    //     return response()->json(['message' => 'failed'], 401);
+    // }
+
+    public function deleteInvoices(Request $request)
+    {
+        $validated = $request->validate([
+            'invoice_ids' => 'required|array',
+            'invoice_ids.*' => 'exists:invoices,id'
+        ]);
+
+        $deletedCount = Invoice::whereIn('id', $validated['invoice_ids'])->delete();
+
+        if ($deletedCount > 0) {
+            return response()->json(['message' => 'Invoices deleted successfully', 'deleted' => $deletedCount], 200);
+        }
+
+        return response()->json(['message' => 'No invoices were deleted'], 404);
     }
 }

@@ -56,7 +56,27 @@ class UserSeeder extends Seeder
             'nomor_rekening' => '0987654321',
             'jumlah_transfer' => 200000,
             'bukti_transfer' => 'bukti_transfer_2.jpg',
-            'status' => '1',
+            'status' => '2',
+            'tanggal_berakhir' => '2024/02/01',
+            'user_id' => 1,
+            'langganan_id' => 2,
+        ]);
+        Invoice::create([
+            'nama_pengirim' => 'Jane Doe',
+            'nomor_rekening' => '0987654321',
+            'jumlah_transfer' => 200000,
+            'bukti_transfer' => 'bukti_transfer_2.jpg',
+            'status' => '2',
+            'tanggal_berakhir' => '2024/02/01',
+            'user_id' => 1,
+            'langganan_id' => 2,
+        ]);
+        Invoice::create([
+            'nama_pengirim' => 'Jane Doe',
+            'nomor_rekening' => '0987654321',
+            'jumlah_transfer' => 200000,
+            'bukti_transfer' => 'bukti_transfer_2.jpg',
+            'status' => '2',
             'tanggal_berakhir' => '2024/02/01',
             'user_id' => 1,
             'langganan_id' => 2,
