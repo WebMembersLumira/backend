@@ -21,6 +21,7 @@ Route::group([
       Route::post('update-users/{id}', [AuthController::class,'resetPassword']);
       Route::post('update-pw/{id}', [AuthController::class,'updatePw']);
       Route::delete('delete-user/{id}', [AuthController::class,'deleteUser']);
+      Route::post('delete-users', [AuthController::class,'deleteUsers']);
       
       Route::post('ganti-password', [AuthController::class,'ubahPassword']);
 

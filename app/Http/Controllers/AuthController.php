@@ -185,6 +185,22 @@ class AuthController extends Controller
         ]);
     }
 
+    public function deleteUsers(Request $request)
+    {
+        $validated = $request->validate([
+            'user_ids' => 'required|array',
+            'user_ids.*' => 'exists:users,id'
+        ]);
+
+        $deletedCount = User::whereIn('id', $validated['user_ids'])->delete();
+
+        if ($deletedCount > 0) {
+            return response()->json(['message' => 'User deleted successfully', 'deleted' => $deletedCount], 200);
+        }
+
+        return response()->json(['message' => 'No user were deleted'], 404);
+    }
+
     public function updatePw(Request $request, $id)
     {
         $validateData = $request->validate([
