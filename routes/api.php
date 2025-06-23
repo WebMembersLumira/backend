@@ -2,62 +2,48 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ProductController;
 
 Route::group([
-    'prefix' => 'auth'
+  'prefix' => 'auth'
+], function () {
+  Route::post('register', [AuthController::class, 'register']);
+  Route::post('login', [AuthController::class, 'login']);
+  Route::group([
+    'middleware' => 'auth:api'
   ], function () {
-    Route::post('register', [AuthController::class,'register']);
-    Route::post('login', [AuthController::class,'login']);
-    Route::group([
-      'middleware' => 'auth:api'
-    ], function(){
-      Route::post('logout', [AuthController::class,'logout']);
-      Route::post('refresh', [AuthController::class, 'refresh']);
-      Route::get('me', [AuthController::class,'me']);
-      Route::get('list-user', [AuthController::class,'listUser']);
-      Route::post('update-users/{id}', [AuthController::class,'resetPassword']);
-      Route::post('update-pw/{id}', [AuthController::class,'updatePw']);
-      Route::delete('delete-user/{id}', [AuthController::class,'deleteUser']);
-      Route::post('delete-users', [AuthController::class,'deleteUsers']);
-      
-      Route::post('ganti-password', [AuthController::class,'ubahPassword']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::get('me', [AuthController::class, 'me']);
+    Route::get('list-user', [AuthController::class, 'listUser']);
+    Route::post('update-users/{id}', [AuthController::class, 'resetPassword']);
+    Route::post('update-pw/{id}', [AuthController::class, 'updatePw']);
+    Route::delete('delete-user/{id}', [AuthController::class, 'deleteUser']);
+    Route::post('delete-users', [AuthController::class, 'deleteUsers']);
 
-      Route::get('active-token/{id}', [AuthController::class,'getActiveToken']);
-      
-      
-      Route::group([
-        'middleware' => 'auth:api'
-      ], function () {
-        Route::get('list-myinvoice/{id}', [InvoiceController::class,'listInvoiceByUserId']);
-        Route::get('detail-invoice/{id}', [InvoiceController::class,'detailInvoice']);
-        Route::post('update-invoice/{id}', [InvoiceController::class,'updateInvoice']);
-        Route::post('atur-tanggal', [InvoiceController::class,'aturTanggal']);
-        Route::post('action-invoice', [InvoiceController::class,'actionInvoice']);
-        Route::get('check-membership/{id}', [InvoiceController::class,'checkMembership']);
-        Route::get('invoice-status/{id}', [InvoiceController::class,'listInvoiceByStatus']);
-        Route::get('statistik-invoice', [InvoiceController::class,'getJumlahInvoice']);
-        Route::get('list-invoice', [InvoiceController::class,'listInvoice']);
-        Route::post('create-invoice', [InvoiceController::class,'createInvoice']);
-        Route::post('delete-invoices', [InvoiceController::class,'deleteInvoices']);
-        
-        Route::get('get-link', [ServiceController::class,'getLink']);
-        Route::post('set-link', [ServiceController::class,'setLink']);
-        Route::get('get-rekening', [ServiceController::class,'getRekening']);
-        Route::post('set-rekening', [ServiceController::class,'setRekening']);
+    Route::post('ganti-password', [AuthController::class, 'ubahPassword']);
 
-        Route::get('list-langganan', [ServiceController::class,'listJenisLangganan']);
-        Route::post('set-langganan', [ServiceController::class,'setJenisLangganan']);
-        Route::delete('delete-langganan/{id}', [ServiceController::class,'deleteLangganan']);
-      });
-      
-    });
+    Route::get('active-token/{id}', [AuthController::class, 'getActiveToken']);
   });
-  
-  
-  
+});
 
 
+Route::group([
+  'prefix' => 'product'
+], function () {
+  // Route::group([
+  //     'middleware' => ['auth:api', 'signature']
+  // ], function () {
+  Route::post('/laporan', [ProductController::class, 'report']);
+  Route::get('/list', [ProductController::class, 'listProduct']);
+  Route::get('/detail/{id}', [ProductController::class, 'detailProduct']);
+  Route::post('/create', [ProductController::class, 'createProduct']);
+  Route::post('/buy/{id}', [ProductController::class, 'buyProduct']);
+  Route::post('/sell/{id}', [ProductController::class, 'sellProduct']);
+  Route::delete('/delete/{id}', [ProductController::class, 'deleteProduct']);
 
+  Route::post('/report/export', [ProductController::class, 'export']);
+
+  // });
+});
