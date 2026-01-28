@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Api\ProfileController;
 
 Route::group([
   'prefix' => 'auth'
@@ -30,20 +30,49 @@ Route::group([
 
 
 Route::group([
-  'prefix' => 'product'
+  'prefix' => 'profile'
 ], function () {
   // Route::group([
   //     'middleware' => ['auth:api', 'signature']
   // ], function () {
-  Route::post('/laporan', [ProductController::class, 'report']);
-  Route::get('/list', [ProductController::class, 'listProduct']);
-  Route::get('/detail/{id}', [ProductController::class, 'detailProduct']);
-  Route::post('/create', [ProductController::class, 'createProduct']);
-  Route::post('/buy/{id}', [ProductController::class, 'buyProduct']);
-  Route::post('/sell/{id}', [ProductController::class, 'sellProduct']);
-  Route::delete('/delete/{id}', [ProductController::class, 'deleteProduct']);
 
-  Route::post('/report/export', [ProductController::class, 'export']);
+
+  // --- Services Routes ---
+  Route::get('/services', [ProfileController::class, 'servicesIndex']);
+  Route::post('/services', [ProfileController::class, 'servicesStore']);
+  Route::get('/services/{id}', [ProfileController::class, 'servicesShow']);
+  Route::put('/services/{id}', [ProfileController::class, 'servicesUpdate']);
+  Route::delete('/services/{id}', [ProfileController::class, 'servicesDestroy']);
+
+  // --- Company Values Routes ---
+  Route::get('/values', [ProfileController::class, 'valuesIndex']);
+  Route::post('/values', [ProfileController::class, 'valuesStore']);
+  Route::get('/values/{id}', [ProfileController::class, 'valuesShow']);
+  Route::put('/values/{id}', [ProfileController::class, 'valuesUpdate']);
+  Route::delete('/values/{id}', [ProfileController::class, 'valuesDestroy']);
+
+  // --- Inspectors Routes ---
+  Route::get('/inspectors', [ProfileController::class, 'inspectorsIndex']);
+  Route::post('/inspectors', [ProfileController::class, 'inspectorsStore']);
+  Route::get('/inspectors/{id}', [ProfileController::class, 'inspectorsShow']);
+  Route::put('/inspectors/{id}', [ProfileController::class, 'inspectorsUpdate']);
+  Route::delete('/inspectors/{id}', [ProfileController::class, 'inspectorsDestroy']);
+
+  // --- Partners Routes ---
+  Route::get('/partners', [ProfileController::class, 'partnersIndex']);
+  Route::post('/partners', [ProfileController::class, 'partnersStore']);
+  Route::get('/partners/{id}', [ProfileController::class, 'partnersShow']);
+  Route::put('/partners/{id}', [ProfileController::class, 'partnersUpdate']);
+  Route::delete('/partners/{id}', [ProfileController::class, 'partnersDestroy']);
+
+
+  // --- Galleries Routes ---
+  Route::get('/galleries', [ProfileController::class, 'galleriesIndex']);
+  Route::post('/galleries', [ProfileController::class, 'galleriesStore']);
+  Route::get('/galleries/{id}', [ProfileController::class, 'galleriesShow']);
+  Route::put('/galleries/{id}', [ProfileController::class, 'galleriesUpdate']);
+  Route::delete('/galleries/{id}', [ProfileController::class, 'galleriesDestroy']);
+
 
   // });
 });

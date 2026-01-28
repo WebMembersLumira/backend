@@ -1,0 +1,43 @@
+INSERT INTO company_values (title, description, icon, created_at, updated_at) VALUES
+(
+  'Integritas',
+  'Menjunjung tinggi kejujuran dalam setiap proses.',
+  'fas fa-handshake',
+  NOW(),
+  NOW()
+),
+(
+  'Profesionalisme',
+  'Dilakukan oleh tenaga profesional yang berpengalaman.',
+  'fas fa-user-tie',
+  NOW(),
+  NOW()
+),
+(
+  'Transparansi',
+  'Proses dapat dipantau langsung oleh customer.',
+  'fas fa-eye',
+  NOW(),
+  NOW()
+),
+(
+  'Objektivitas',
+  'Penilaian adil tanpa dipengaruhi kepentingan pihak manapun.',
+  'fas fa-balance-scale',
+  NOW(),
+  NOW()
+),
+(
+  'Kepatuhan',
+  'Mengikuti regulasi dan standar hukum Indonesia.',
+  'fas fa-gavel',
+  NOW(),
+  NOW()
+),
+(
+  'Pelayanan Unggul',
+  'Responsif, jelas, dan cepat dalam menjawab kebutuhan.',
+  'fas fa-award',
+  NOW(),
+  NOW()
+);

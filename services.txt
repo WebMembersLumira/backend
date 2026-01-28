@@ -1,0 +1,88 @@
+INSERT INTO services (title, description, icon, created_at, updated_at) VALUES
+(
+  'Sertifikasi Halal',
+  'Pengurusan sertifikasi halal untuk produk makanan, minuman, dan jasa.',
+  'fas fa-certificate',
+  NOW(),
+  NOW()
+),
+(
+  'Sistem Manajemen',
+  'Meliputi ISO, GMP, HACCP, HSE, dan standar sistem manajemen lainnya.',
+  'fas fa-tasks',
+  NOW(),
+  NOW()
+),
+(
+  'Sertifikasi Produk',
+  'Pengurusan SNI, Pangan Organik, Ecolabel, dan sertifikasi produk lainnya.',
+  'fas fa-box-open',
+  NOW(),
+  NOW()
+),
+(
+  'Kalibrasi Alkes',
+  'Layanan kalibrasi untuk memastikan akurasi alat kesehatan Anda.',
+  'fas fa-heartbeat',
+  NOW(),
+  NOW()
+),
+(
+  'Uji Raksa PJK3',
+  'Pengujian dan sertifikasi untuk peralatan instalasi penangkal kebakaran.',
+  'fas fa-fire-extinguisher',
+  NOW(),
+  NOW()
+),
+(
+  'TKDN & MD BPOM',
+  'Pengurusan Tingkat Komponen Dalam Negeri (TKDN) dan Notifikasi MD BPOM.',
+  'fas fa-file-medical',
+  NOW(),
+  NOW()
+),
+(
+  'Laporan Survei (LS)',
+  'Penyusunan laporan survei kebutuhan perizinan usaha.',
+  'fas fa-clipboard-list',
+  NOW(),
+  NOW()
+),
+(
+  'Masterlist & Impor',
+  'Pengurusan masterlist produk dan persetujuan impor.',
+  'fas fa-globe',
+  NOW(),
+  NOW()
+),
+(
+  'AMDAL',
+  'Konsultasi dan pengurusan Analisis Mengenai Dampak Lingkungan.',
+  'fas fa-tree',
+  NOW(),
+  NOW()
+);
+
+
+INSERT INTO services (title, description, icon, created_at, updated_at) VALUES
+(
+  'Konsultan IT',
+  'Layanan konsultasi teknologi informasi untuk pengembangan sistem, keamanan, dan transformasi digital.',
+  'fas fa-laptop-code',
+  NOW(),
+  NOW()
+),
+(
+  'Konsultan Pajak',
+  'Pendampingan dan konsultasi perpajakan untuk kepatuhan serta optimalisasi kewajiban pajak.',
+  'fas fa-file-invoice-dollar',
+  NOW(),
+  NOW()
+),
+(
+  'Pengawasan Cold Storage',
+  'Layanan pengawasan dan evaluasi cold storage untuk memastikan kualitas dan keamanan penyimpanan produk.',
+  'fas fa-snowflake',
+  NOW(),
+  NOW()
+);
